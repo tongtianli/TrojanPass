@@ -47,9 +47,10 @@ class EmailManager:
                 encoders.encode_base64(part)
 
                 # Add header as key/value pair to attachment part
+                filename = os.path.basename(attachment_dir)
                 part.add_header(
                     "Content-Disposition",
-                    f"attachment; filename= {attachment_dir}",
+                    f"attachment; filename= {filename}",
                 )
 
                 # Add attachment to message and convert message to string

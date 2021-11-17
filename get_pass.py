@@ -44,6 +44,9 @@ class Driver:
     def ele_by_id(self, _id: str) -> WebElement:
         return self.driver.find_element_by_id(_id)
 
+    def ele_by_name(self, name: str) -> WebElement:
+        return self.driver.find_element_by_name(name)
+
     def eles_by_classname(self, class_name: str) -> List[WebElement]:
         return self.driver.find_elements_by_class_name(class_name)
 
@@ -119,7 +122,7 @@ class Passer:
             self.driver.ele_by_id('password').send_keys(self.net_pw)
 
             # Login Button
-            self.driver.ele_by_xpath('//*[@id="loginform"]/div[4]/button').click()
+            self.driver.ele_by_name('_eventId_proceed').click()
 
             if self.driver.eles_by_classname("form-error"):
                 raise IncorrectPasswordError('Incorrect password', self.net_id)
