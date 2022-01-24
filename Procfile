@@ -1,1 +1,1 @@
-get_pass: python main.py
+web: python serveit.py

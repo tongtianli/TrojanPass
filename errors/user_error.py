@@ -9,6 +9,10 @@ class IncorrectPasswordError(UserError):
         super().__init__(message)
         self.net_id = net_id
 
+class DuoCodeError(UserError):
+    def __init__(self, message: str):
+        super().__init__(message)
+
 
 class SelfAssessmentNotCompliantError(UserError):
     def __init__(self, message: str, notification: str):

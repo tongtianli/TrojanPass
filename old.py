@@ -43,7 +43,7 @@ def main(send_mail: bool = True):
         try:
             content = passer.get_pass_and_reminder()
             email_title = "Your Daily Trojan Pass"
-            image_name = str_image(net_id)
+            image_name = get_image_name(net_id)
         except IncorrectPasswordError as e:
             logging.error(e.message + ' for ' + e.net_id)
             content = "Your given password may be wrong, we cannot do Trojan Check for you."

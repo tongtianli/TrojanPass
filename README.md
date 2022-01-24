@@ -71,7 +71,7 @@ cd TrojanPass
 # IMPORTANT: replace <>s with your info
 `printf '\n# Trojan Pass\nexport TROJAN_PASS_NETID="<Your Net ID>"\nexport TROJAN_PASS_PASSWORD="<Your NetID password>"\nexport TROJAN_PASS_GMAIL_ACCOUNT="<Your Gmail Account>"\nexport TROJAN_PASS_GMAIL_PASSWORD="<Your Gmail Password>"\n' >> ~/.bash_profile
 
-python3 main.py
+python3 old.py
 ```
 
 Optional: setup crontab, see below.
