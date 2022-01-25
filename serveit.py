@@ -10,7 +10,7 @@ from utils import *
 from typing import Optional
 
 hostName = '0.0.0.0'
-port = os.environ.get('PORT')
+port = int(os.environ.get('PORT'))
 
 
 class HttpRequestHandler(BaseHTTPRequestHandler):
