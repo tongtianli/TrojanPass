@@ -128,15 +128,14 @@ class Passer:
             if self.driver.elems_by_classname("form-error"):
                 raise IncorrectPasswordError('Incorrect password', self.net_id)
 
-            self.driver.driver.switch_to.frame(self.driver.elem_with_wait(By.XPATH, '//iframe'))
-
-            self.driver.elem_with_wait(By.ID, 'passcode').click()
-
-            self.driver.elems_by_classname('passcode-input')[0].send_keys(self.duo_code)
-
-            self.driver.elem_by_id('passcode').click()
-
-            self.driver.driver.switch_to.default_content()
+            try:
+                self.driver.driver.switch_to.frame(self.driver.elem_with_wait(By.XPATH, '//iframe'))
+                self.driver.elem_with_wait(By.ID, 'passcode').click()
+                self.driver.elems_by_classname('passcode-input')[0].send_keys(self.duo_code)
+                self.driver.elem_by_id('passcode').click()
+                self.driver.driver.switch_to.default_content()
+            except TimeoutException:
+                pass
 
         # Continue button
         try:

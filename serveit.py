@@ -8,6 +8,9 @@ from errors import *
 import urllib3.util
 from utils import *
 from typing import Optional
+from dotenv import load_dotenv
+
+load_dotenv()
 
 hostName = '0.0.0.0'
 port = int(os.environ.get('PORT'))
