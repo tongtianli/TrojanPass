@@ -134,7 +134,7 @@ class Passer:
                 self.driver.elems_by_classname('passcode-input')[0].send_keys(self.duo_code)
                 self.driver.elem_by_id('passcode').click()
                 self.driver.driver.switch_to.default_content()
-            except TimeoutException:
+            except Exception:
                 pass
 
         # Continue button
