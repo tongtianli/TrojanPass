@@ -1,13 +1,10 @@
-import base64
 import logging
-import os.path
 import urllib.parse
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from get_pass import Passer
 from errors import *
 import urllib3.util
 from utils import *
-from typing import Optional
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -23,19 +20,12 @@ class HttpRequestHandler(BaseHTTPRequestHandler):
     message = ''
     content = b''
 
-    def get_pass_image(self, net_id, net_pw, duo_code) -> Optional[bytes]:
-        if os.path.exists(get_image_name(net_id)):
-            with open(get_image_name(net_id), 'rb') as f:
-                image = f.read()
-            return image
+    def get_pass_image(self, net_id, net_pw, duo_code):
         try:
             HttpRequestHandler.busying = True
             passer = Passer(net_id, net_pw, duo_code,headless=HEADLESS)
-            passer.get_pass_and_reminder()
             self.code = 200
-            with open(get_image_name(net_id), 'rb') as f:
-                image = f.read()
-            return image
+            self.content = passer.get_pass_and_reminder().encode()
         except IncorrectPasswordError as e:
             logging.error(e.message + ' for ' + e.net_id)
             self.message = "Your given password may be wrong, we cannot do Trojan Check for you."
@@ -67,7 +57,7 @@ class HttpRequestHandler(BaseHTTPRequestHandler):
                     net_id = qs['id'][0]
                     net_pw = qs['pw'][0]
                     duo_code = qs['code'][0]
-                    self.content = self.get_pass_image(net_id, net_pw, duo_code)
+                    self.get_pass_image(net_id, net_pw, duo_code)
                 except IndexError:
                     self.code = 400
                     self.message = 'Invalid arguments'

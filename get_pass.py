@@ -77,7 +77,7 @@ class Passer:
         # recommend setting: Firefox headless or Chrome (without headless)
         self.driver = Driver(firefox, headless)
 
-    def get_pass_and_reminder(self):
+    def get_pass_and_reminder(self)->str:
         try:
             logging.info(f"Attempt to run {self.driver.name()} with headless={self.driver.headless}")
             logging.info(f"Get pass for net_id: {self.net_id}.")
@@ -100,10 +100,9 @@ class Passer:
 
             if self.driver.current_url_ends('dashboard'):
                 pass_element = self.driver.elems_by_classname('day-pass-wrapper')[0]
-                pass_element.screenshot(self.image_name)
-
                 notification = self.driver.elems_by_classname('notification-message')[0].text
                 logging.debug(f'{self.image_name} is saved and next_test_reminder is {notification}')
+                return pass_element.screenshot_as_base64
 
         except TimeoutException:
             random_image_name = f"error{random.randint(201, 500)}.png"
