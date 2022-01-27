@@ -128,21 +128,18 @@ class Passer:
             if self.driver.elems_by_classname("form-error"):
                 raise IncorrectPasswordError('Incorrect password', self.net_id)
 
-            try:
-                self.driver.driver.switch_to.frame(self.driver.elem_with_wait(By.XPATH, '//iframe'))
-                self.driver.elem_with_wait(By.ID, 'passcode').click()
-                self.driver.elems_by_classname('passcode-input')[0].send_keys(self.duo_code)
-                self.driver.elem_by_id('passcode').click()
-                self.driver.driver.switch_to.default_content()
-            except Exception:
-                pass
+            # try:
+            #     self.driver.driver.switch_to.frame(self.driver.elem_with_wait(By.XPATH, '//iframe'))
+            #     self.driver.elem_with_wait(By.ID, 'passcode').click()
+            #     self.driver.elems_by_classname('passcode-input')[0].send_keys(self.duo_code)
+            #     self.driver.elem_by_id('passcode').click()
+            #     self.driver.driver.switch_to.default_content()
+            # except Exception:
+            #     pass
 
         # Continue button
-        try:
-            self.driver.elem_with_wait(By.CLASS_NAME, 'btn-next').click()
-        except TimeoutException:
-            if self.driver.current_url_ends('authuserpassword'):
-                raise DuoCodeError('Invalid DUO code')
+        self.driver.elem_with_wait(By.CLASS_NAME, 'btn-next').click()
+
 
     def self_assessment(self):
         # prepare for begin_wellness_assessment

@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+HEADLESS = True
 hostName = '0.0.0.0'
 port = int(os.environ.get('PORT'))
 
@@ -29,7 +30,7 @@ class HttpRequestHandler(BaseHTTPRequestHandler):
             return image
         try:
             HttpRequestHandler.busying = True
-            passer = Passer(net_id, net_pw, duo_code)
+            passer = Passer(net_id, net_pw, duo_code,headless=HEADLESS)
             passer.get_pass_and_reminder()
             self.code = 200
             with open(get_image_name(net_id), 'rb') as f:
